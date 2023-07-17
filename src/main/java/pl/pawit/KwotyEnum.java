@@ -21,4 +21,24 @@ public enum KwotyEnum {
         this.price = price;
         this.isGuaranteed = isGuaranteed;
     }
+
+    public int getQuestionNr() {
+        return questionNr;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public boolean isGuaranteed() {
+        return isGuaranteed;
+    }
+   public static BigDecimal znajdzKwotePoNumerzePytania(int numerPytania){
+        for (KwotyEnum kwota : KwotyEnum.values()) {
+            if (numerPytania==kwota.getQuestionNr()) {
+                return kwota.getPrice();
+            }
+        }
+        return null;
+    }
 }
