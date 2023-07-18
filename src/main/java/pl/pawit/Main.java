@@ -20,15 +20,15 @@ public class Main {
 
         while (czyKontynuowac) {
             System.out.println("1. Wyswietl pytanie");
-            //ekran pytana
-            System.out.println("2. Skorzystaj z kola ratunkowego, kliknij X");
+            //ekran pytania
+            System.out.println("2. Skorzystaj z kola ratunkowego, wpisz kolo");
             System.out.println("3. Sprawdz laczna pule wygranej");
             System.out.println("4. Rezygnacja z gry");
 
             int wybranaOpcja = scanner.nextInt();
             switch (wybranaOpcja) {
                 case 1 -> pytanie.wyswietlPytanie();
-                case 2 -> System.out.println("wybrano 2");
+                case 2 -> pytanie.wyswietlKolaRatunkowe();
                 case 3 -> System.out.println("wybrano 3");
                 case 4 -> czyKontynuowac = false;
             }
