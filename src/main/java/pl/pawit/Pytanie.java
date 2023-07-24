@@ -5,14 +5,13 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Pytanie {
     int licznikPytan = 0;
 
     public String wyswietlPytanie() throws IOException {
+        List<String> listaOdpowiedzi = new ArrayList<>();
         Random los = new Random();
         Scanner sc = new Scanner(System.in);
         Path inputPath = Paths.get("src/main/resources/pytania.txt");
@@ -21,6 +20,12 @@ public class Pytanie {
 
         while (kontynuacja) for (int i = 0; i < lines.size(); i++) {
             String[] elementPytania = lines.get(i).split("//");
+            listaOdpowiedzi.add(elementPytania[1]);
+            listaOdpowiedzi.add(elementPytania[2]);
+            listaOdpowiedzi.add(elementPytania[3]);
+            listaOdpowiedzi.add(elementPytania[4]);
+            listaOdpowiedzi.add(elementPytania[5]);
+
             wyswietlPytanieIOdpowiedzi(elementPytania);
             String wyborUzytkownika = "";
 
@@ -28,14 +33,17 @@ public class Pytanie {
             while (urzytkownikSkorzystalZKola) {
                 wyborUzytkownika = sc.nextLine();
                 if (wyborUzytkownika.equalsIgnoreCase("kolo")) {
-                    for (int j = 1; j < elementPytania.length - 1; j++) {
-                        System.out.println(elementPytania[5]);
-                        urzytkownikSkorzystalZKola=false;
+                    int losowyWariant = los.nextInt(listaOdpowiedzi.size());
+                    String wylosowanyElement= listaOdpowiedzi.get(losowyWariant);
+                    if (wylosowanyElement==elementPytania[5]){
+                        listaOdpowiedzi.remove(elementPytania[5]);
                     }
+                    System.out.println(wylosowanyElement);
+                    System.out.println(elementPytania[5]);
+                        urzytkownikSkorzystalZKola = false;
+                    /*}*/
                 }
             }
-
-
             boolean wrocDoPytania = true;
             while (wrocDoPytania) {
                 wyborUzytkownika = sc.nextLine();
@@ -49,12 +57,10 @@ public class Pytanie {
 
             char poprawnaOdp = elementPytania[5].charAt(0);
             if (wyborUzytkownika.equalsIgnoreCase(String.valueOf(elementPytania[5].
-
                     charAt(0)))) {
                 System.out.println("Brawo to poprawna odpowiedz");
                 licznikPytan++;
                 System.out.println("masz na koncie: " + KwotyEnum.znajdzKwotePoNumerzePytania(licznikPytan));
-
             } else {
                 System.out.println("przegrales");
                 licznikPytan = 0;
@@ -66,9 +72,9 @@ public class Pytanie {
                 kontynuacja = false;
                 break;
             }
-            if (wyborUzytkownika.equalsIgnoreCase("kolo")) {
+           /* if (wyborUzytkownika.equalsIgnoreCase("kolo")) {
                 wyswietlKolaRatunkowe();
-            }
+            }*/
         }
 
         return null;
