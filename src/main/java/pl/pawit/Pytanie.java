@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class Pytanie {
     int licznikPytan = 0;
@@ -35,13 +36,17 @@ public class Pytanie {
                 if (wyborUzytkownika.equalsIgnoreCase("kolo")) {
                     int losowyWariant = los.nextInt(listaOdpowiedzi.size());
                     String wylosowanyElement= listaOdpowiedzi.get(losowyWariant);
-                    if (wylosowanyElement==elementPytania[5]){
+                    if (wylosowanyElement==elementPytania[5]) {
                         listaOdpowiedzi.remove(elementPytania[5]);
                     }
-                    System.out.println(wylosowanyElement);
-                    System.out.println(elementPytania[5]);
+                        List<String> wyswietlaneOdpPoWybraniuKola = new ArrayList<>();
+                        wyswietlaneOdpPoWybraniuKola.add(wylosowanyElement);
+                        wyswietlaneOdpPoWybraniuKola.add(elementPytania[5]);
+                        Collections.sort(wyswietlaneOdpPoWybraniuKola);
+                        wyswietlaneOdpPoWybraniuKola.stream()
+                                .forEach(odp -> System.out.println(odp));
+
                         urzytkownikSkorzystalZKola = false;
-                    /*}*/
                 }
             }
             boolean wrocDoPytania = true;
